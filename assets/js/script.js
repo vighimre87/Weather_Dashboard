@@ -35,13 +35,25 @@ function getWeather(lat, lon) {
         console.log(response);
         weather.icon = response.list[0].weather[0].icon;
         console.log(weather.icon);
-        const image = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + weather.icon +"@2x.png");
-        $("#today").append(image);
         weather.temp = Math.floor(parseFloat(response.list[0].main.temp) - 273.15);
         weather.wind = response.list[0].wind.speed;
         weather.humidity = response.list[0].main.humidity
         console.log("Temp: " + weather.temp + "\u2103");
         console.log("Wind: " + weather.wind + " KPH");
         console.log("Humidity: " + weather.humidity + "%");
+        displayTodaysWeather();
     });
+}
+
+function displayTodaysWeather() {
+    const currentDate = moment().format("l");
+    const today = $("#today");
+    console.log(currentDate);
+    const currentDateAndLocation = $("<h2>").text(weather.city + " (" + currentDate + ")");
+    const image = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + weather.icon +"@2x.png");
+    currentDateAndLocation.append(image);
+    const temp = $("<p>").text("Temp: " + weather.temp + "\u2103");
+    const wind = $("<p>").text("Wind: " + weather.wind + " KPH");
+    const humidity = $("<p>").text("Humidity: " + weather.humidity + "%");
+    today.append(currentDateAndLocation, temp, wind, humidity);
 }
