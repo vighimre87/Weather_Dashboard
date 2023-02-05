@@ -1,18 +1,26 @@
-function getGeoCodes() {
-    const cityName = "London";
-    const queryURL1 = "http://api.openweathermap.org/geo/1.0/direct?q=London"
-    + "&appid=166a433c57516f51dfab1f7edaed8413&limit=5";
+const weather = {};
+
+$("#search-button").on("click", function(event) {
+    event.preventDefault();
+    weather.city = $("#search-input").val().trim();
+    console.log(weather.city);
+    getGeoCodes(weather.city);
+})
+
+function getGeoCodes(cityName) {
+    const queryURL1 = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName
+    + "&appid=166a433c57516f51dfab1f7edaed8413";
     $.ajax({
         url: queryURL1,
         method: "GET"
     }).then(function(response) {
         console.log(queryURL1);
         console.log(response);
-        const latitude = response[0].lat;
-        const longitude = response[0].lon;
-        console.log(latitude);
-        console.log(longitude);
-        getWeather(latitude, longitude);
+        weather.lat = response[0].lat;
+        weather.lon = response[0].lon;
+        console.log(weather.lat);
+        console.log(weather.lon);
+        getWeather(weather.lat, weather.lon);
     })
 }
 
@@ -25,14 +33,15 @@ function getWeather(lat, lon) {
     }).then(function(response) {
         console.log(queryURL2);
         console.log(response);
-        const weatherIcon = response.list[0].weather[0].icon;
-        console.log(response.list[0].weather[0].icon);
-        const image = $("<img>").attr("src", "http://openweathermap.org/img/wn/04d@2x.png");
+        weather.icon = response.list[0].weather[0].icon;
+        console.log(weather.icon);
+        const image = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + weather.icon +"@2x.png");
         $("#today").append(image);
-        console.log(response.list[0].main.temp);
-        console.log(response.list[0].wind.speed);
-        console.log(response.list[0].main.humidity);
+        weather.temp = Math.floor(parseFloat(response.list[0].main.temp) - 273.15);
+        weather.wind = response.list[0].wind.speed;
+        weather.humidity = response.list[0].main.humidity
+        console.log("Temp: " + weather.temp + "\u2103");
+        console.log("Wind: " + weather.wind + " KPH");
+        console.log("Humidity: " + weather.humidity + "%");
     });
 }
-
-getGeoCodes();
