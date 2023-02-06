@@ -25,12 +25,3 @@ hr {
     border-top: 1px solid rgba(0, 0, 0, .25);
 }
 
-#today {
-    border: 1px solid rgb(35, 34, 34);
-    padding: 15px;
-    background-color: antiquewhite;
-}
-
-h4 {
-    display: block;
-}
