@@ -70,7 +70,7 @@ function getWeather(lat, lon) {
         // Display the current weather datas
         let currentDate = moment().format('DD/MM/YYYY');
         const currentDateAndLocation = $("<h2>").text(weather.city + " (" + currentDate + ")");
-        const currentImage = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.list[0].weather[0].icon +"@2x.png");
+        const currentImage = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + response.list[0].weather[0].icon +"@2x.png");
         currentDateAndLocation.append(currentImage);
         const currentTemp = $("<p>").text("Temp: " + Math.floor(parseFloat(response.list[0].main.temp) - 273.15) + "\u2103");
         const currentWind = $("<p>").text("Wind: " + response.list[0].wind.speed + " KPH");
@@ -94,7 +94,7 @@ function getWeather(lat, lon) {
             console.log(currentForecastDay);
             const cardTitle = $("<div class='card-title'></div>").text(currentForecastDay);
             daysToAdd++;
-            const image = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.list[i].weather[0].icon +"@2x.png");
+            const image = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + response.list[i].weather[0].icon +"@2x.png");
             const temp = $("<p>").text("Temp: " + Math.floor(parseFloat(response.list[i].main.temp) - 273.15) + "\u2103");
             const wind = $("<p>").text("Wind: " + response.list[i].wind.speed + " KPH");
             const humidity = $("<p>").text("Humidity: " + response.list[i].main.humidity + "%");
@@ -106,7 +106,7 @@ function getWeather(lat, lon) {
         card.append(cardBody);
         currentForecastDay = moment().add(daysToAdd, "days").format("DD/MM/YYYY");
         const cardTitle = $("<div class='card-title'></div>").text(currentForecastDay);
-        const image = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.list[response.list.length-1].weather[0].icon +"@2x.png");
+        const image = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + response.list[response.list.length-1].weather[0].icon +"@2x.png");
         const temp = $("<p>").text("Temp: " + Math.floor(parseFloat(response.list[response.list.length-1].main.temp) - 273.15) + "\u2103");
         const wind = $("<p>").text("Wind: " + response.list[response.list.length-1].wind.speed + " KPH");
         const humidity = $("<p>").text("Humidity: " + response.list[response.list.length-1].main.humidity + "%");
