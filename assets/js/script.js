@@ -86,7 +86,7 @@ function getWeather(lat, lon) {
         let daysToAdd = 1;
         // Dynamically create the weather cards inside a foor lop, populate and append them to the right HTML elements
         for (let i = 8; i<response.list.length; i=i+8) {
-            const card = $("<div class='card' style='width: 200px; color: white; background-color: rgb(81, 81, 217);'></card>");
+            const card = $("<div class='card' style='width: 200px; color: white; background-color: rgb(51, 51, 137);'></card>");
             cardDeck.append(card);
             const cardBody = $("<div class='card-body'></div>");
             card.append(cardBody);
@@ -100,7 +100,7 @@ function getWeather(lat, lon) {
             const humidity = $("<p>").text("Humidity: " + response.list[i].main.humidity + "%");
             cardBody.append(cardTitle, image, temp, wind, humidity);
         }
-        const card = $("<div class='card' style='width: 200px; color: white; background-color: rgb(81, 81, 217);'></card>");
+        const card = $("<div class='card' style='width: 200px; color: white; background-color: rgb(51, 51, 137);'></card>");
         cardDeck.append(card);
         const cardBody = $("<div class='card-body'></div>");
         card.append(cardBody);
