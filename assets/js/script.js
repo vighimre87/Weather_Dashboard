@@ -41,7 +41,7 @@ function getGeoCodes(cityName) {
             if (JSON.parse(localStorage.getItem(userEntry)) !== null) {
                 console.log("Item is already in local storage");
             } else {
-                const cityButton = $("<button class='btn btn-secondary cityBtn'></button>").text(weather.city);
+                const cityButton = $("<button class='btn btn-secondary cityBtn' style='margin-bottom: 10px; width: 60%;'></button>").text(weather.city);
                 cityButton.attr("data-city", weather.city);
                 history.append(cityButton);
             }
@@ -120,7 +120,7 @@ function displayHistoryButtons() {
     userCities.forEach(function(city) {
         if (city === "debug") {}
         else {
-        const cityButton = $("<button class='btn btn-secondary cityBtn'></button>").text(city);
+        const cityButton = $("<button class='btn btn-secondary cityBtn' style='margin-bottom: 10px; width: 60%;'></button>").text(city);
         cityButton.attr("data-city", city);
         history.append(cityButton);
     }

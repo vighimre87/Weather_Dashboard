@@ -3,7 +3,7 @@
 }
 
 .bg-dark {
-    background-image: linear-gradient(to right, var(--blue-color), rgb(27, 27, 122));
+    background-image: linear-gradient(to right, var(--blue-color), rgb(51, 51, 137));
 }
 
 .input-group {
@@ -21,7 +21,6 @@
 }
 
 hr {
-    color: rgb(159, 157, 157);
-    border-top: 1px solid rgba(0, 0, 0, .25);
+    background-color: rgb(89, 77, 77);
 }
 
