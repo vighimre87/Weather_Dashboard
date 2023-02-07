@@ -12,11 +12,17 @@ const userEntries = [];
 // Creating an event listener for the search button to get the city name and call the getGeoCodes function with the city name
 searchBtn.on("click", function(event) {
     event.preventDefault();
-    weather.city = searchInput.val().trim();
-    searchInput.val("");
-    userEntries.push(weather.city);
-    // console.log(weather.city);
-    getGeoCodes(weather.city);
+    const lettersAndSpace = /^[A-Za-z\s]*$/;
+    const onlyLetters = /^[A-Za-z\s]+$/;
+    if (!searchInput.val().trim().match(onlyLetters) || !searchInput.val().trim().match(lettersAndSpace)) {
+        alert("Invalid input! Please enter a valid city name!");
+    } else {
+        weather.city = searchInput.val().trim();
+        searchInput.val("");
+        userEntries.push(weather.city);
+        // console.log(weather.city);
+        getGeoCodes(weather.city);
+    }
 })
 
 // Create a function to get longitudes and langitudes to pass them to the getWeather function 
@@ -35,11 +41,11 @@ function getGeoCodes(cityName) {
         // console.log(weather.lon);
 
         // Create a button for the historic data
-        console.log(userEntries);
+        // console.log(userEntries);
         userEntries.forEach(function(userEntry) {
-            console.log(userEntry);
+            // console.log(userEntry);
             if (JSON.parse(localStorage.getItem(userEntry)) !== null) {
-                console.log("Item is already in local storage");
+                // console.log("Item is already in local storage");
             } else {
                 const cityButton = $("<button class='btn btn-secondary cityBtn' style='margin-bottom: 10px; width: 60%;'></button>").text(weather.city);
                 cityButton.attr("data-city", weather.city);
@@ -63,7 +69,7 @@ function getWeather(lat, lon) {
         url: queryURL2,
         method: "GET"
     }).then(function(response) {
-        console.log(response);
+        // console.log(response);
         // Empty the data containers before to display the new datas
         today.empty();
         forecast.empty();
@@ -91,7 +97,7 @@ function getWeather(lat, lon) {
             const cardBody = $("<div class='card-body'></div>");
             card.append(cardBody);
             currentForecastDay = moment().add(daysToAdd, "days").format("DD/MM/YYYY");
-            console.log(currentForecastDay);
+            // console.log(currentForecastDay);
             const cardTitle = $("<h5 class='card-title'></h5>").text(currentForecastDay);
             daysToAdd++;
             const image = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + response.list[i].weather[0].icon +"@2x.png");
