@@ -92,7 +92,7 @@ function getWeather(lat, lon) {
             card.append(cardBody);
             currentForecastDay = moment().add(daysToAdd, "days").format("DD/MM/YYYY");
             console.log(currentForecastDay);
-            const cardTitle = $("<div class='card-title'></div>").text(currentForecastDay);
+            const cardTitle = $("<h5 class='card-title'></h5>").text(currentForecastDay);
             daysToAdd++;
             const image = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + response.list[i].weather[0].icon +"@2x.png");
             const temp = $("<p>").text("Temp: " + Math.floor(parseFloat(response.list[i].main.temp) - 273.15) + "\u2103");
@@ -105,7 +105,7 @@ function getWeather(lat, lon) {
         const cardBody = $("<div class='card-body'></div>");
         card.append(cardBody);
         currentForecastDay = moment().add(daysToAdd, "days").format("DD/MM/YYYY");
-        const cardTitle = $("<div class='card-title'></div>").text(currentForecastDay);
+        const cardTitle = $("<h5 class='card-title'></h5>").text(currentForecastDay);
         const image = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + response.list[response.list.length-1].weather[0].icon +"@2x.png");
         const temp = $("<p>").text("Temp: " + Math.floor(parseFloat(response.list[response.list.length-1].main.temp) - 273.15) + "\u2103");
         const wind = $("<p>").text("Wind: " + response.list[response.list.length-1].wind.speed + " KPH");
