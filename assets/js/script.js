@@ -21,7 +21,7 @@ searchBtn.on("click", function(event) {
 
 // Create a function to get longitudes and langitudes to pass them to the getWeather function 
 function getGeoCodes(cityName) {
-    const queryURL1 = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName
+    const queryURL1 = "https://api.openweathermap.org/geo/1.0/direct?q=" + cityName
     + "&appid=166a433c57516f51dfab1f7edaed8413";
     $.ajax({
         url: queryURL1,
@@ -57,7 +57,7 @@ function getGeoCodes(cityName) {
 
 // Create a function to get the weather datas from the weather API and display them in HTML elements
 function getWeather(lat, lon) {
-    const queryURL2 = "http://api.openweathermap.org/data/2.5/forecast?" + 
+    const queryURL2 = "https://api.openweathermap.org/data/2.5/forecast?" + 
         "lat=" + lat + "&lon=" + lon + "&appid=25397b764a0b6707510b0e079a20c94c";
     $.ajax({
         url: queryURL2,
