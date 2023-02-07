@@ -7,11 +7,14 @@ const searchInput = $("#search-input");
 const searchBtn = $("#search-button");
 const history = $("#history");
 const forecast = $("#forecast");
+const userEntries = [];
 
 // Creating an event listener for the search button to get the city name and call the getGeoCodes function with the city name
 searchBtn.on("click", function(event) {
     event.preventDefault();
     weather.city = searchInput.val().trim();
+    searchInput.val("");
+    userEntries.push(weather.city);
     // console.log(weather.city);
     getGeoCodes(weather.city);
 })
@@ -30,19 +33,30 @@ function getGeoCodes(cityName) {
         weather.lon = response[0].lon;
         // console.log(weather.lat);
         // console.log(weather.lon);
+
+        // Create a button for the historic data
+        console.log(userEntries);
+        userEntries.forEach(function(userEntry) {
+            console.log(userEntry);
+            if (JSON.parse(localStorage.getItem(userEntry)) !== null) {
+                console.log("Item is already in local storage");
+            } else {
+                const cityButton = $("<button class='btn btn-secondary cityBtn'></button>").text(weather.city);
+                cityButton.attr("data-city", weather.city);
+                history.append(cityButton);
+            }
+        });
+
+
+
+        // Save city name, longitude and latitude in the local storage for the history
+        localStorage.setItem(weather.city, JSON.stringify(weather));
         getWeather(weather.lat, weather.lon);
     })
 }
 
 // Create a function to get the weather datas from the weather API and display them in HTML elements
 function getWeather(lat, lon) {
-    // const date = new Date();
-    // const day = date.getDate();
-    // const month = date.getMonth()+1;
-    // const year = date.getFullYear();
-    // const currentDate = day + "/" + month + "/" + year;
-    // let tomorrow = moment().add(1, "days");
-    // console.log(tomorrow);
     const queryURL2 = "http://api.openweathermap.org/data/2.5/forecast?" + 
         "lat=" + lat + "&lon=" + lon + "&appid=25397b764a0b6707510b0e079a20c94c";
     $.ajax({
@@ -54,7 +68,7 @@ function getWeather(lat, lon) {
         today.empty();
         forecast.empty();
         // Display the current weather datas
-        let currentDate = moment().format('D/MM/YYYY');
+        let currentDate = moment().format('DD/MM/YYYY');
         const currentDateAndLocation = $("<h2>").text(weather.city + " (" + currentDate + ")");
         const currentImage = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.list[0].weather[0].icon +"@2x.png");
         currentDateAndLocation.append(currentImage);
@@ -70,12 +84,13 @@ function getWeather(lat, lon) {
         forecast.append(forecastHeader, cardDeck);
         let currentForecastDay;
         let daysToAdd = 1;
+        // Dynamically create the weather cards inside a foor lop, populate and append them to the right HTML elements
         for (let i = 8; i<response.list.length; i=i+8) {
             const card = $("<div class='card' style='width: 200px; color: white; background-color: rgb(81, 81, 217);'></card>");
             cardDeck.append(card);
             const cardBody = $("<div class='card-body'></div>");
             card.append(cardBody);
-            currentForecastDay = moment().add(daysToAdd, "days").format("D/MM/YYYY");
+            currentForecastDay = moment().add(daysToAdd, "days").format("DD/MM/YYYY");
             console.log(currentForecastDay);
             const cardTitle = $("<div class='card-title'></div>").text(currentForecastDay);
             daysToAdd++;
@@ -89,8 +104,7 @@ function getWeather(lat, lon) {
         cardDeck.append(card);
         const cardBody = $("<div class='card-body'></div>");
         card.append(cardBody);
-        daysToAdd++;
-        currentForecastDay = moment().add(daysToAdd, "days").format("D/MM/YYYY");
+        currentForecastDay = moment().add(daysToAdd, "days").format("DD/MM/YYYY");
         const cardTitle = $("<div class='card-title'></div>").text(currentForecastDay);
         const image = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.list[response.list.length-1].weather[0].icon +"@2x.png");
         const temp = $("<p>").text("Temp: " + Math.floor(parseFloat(response.list[response.list.length-1].main.temp) - 273.15) + "\u2103");
@@ -99,3 +113,26 @@ function getWeather(lat, lon) {
         cardBody.append(cardTitle, image, temp, wind, humidity);
 });
 }
+
+// Create a function to display the history buttons
+function displayHistoryButtons() {
+    const userCities = Object.keys(localStorage);
+    userCities.forEach(function(city) {
+        if (city === "debug") {}
+        else {
+        const cityButton = $("<button class='btn btn-secondary cityBtn'></button>").text(city);
+        cityButton.attr("data-city", city);
+        history.append(cityButton);
+    }
+    });
+}
+
+displayHistoryButtons();
+
+// Add an event listener to the history buttons
+history.on("click", ".cityBtn", function(event) {
+    event.preventDefault();
+    weather.city = $(this).attr("data-city");
+    userEntries.push(weather.city);
+    getGeoCodes(weather.city);
+})
