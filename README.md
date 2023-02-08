@@ -16,6 +16,7 @@ Please see a mockup image of the website below before searching:
 
 <br>
 And here is another one after searching:
+<br>
 
 <br>
 <img src="assets/images/mockup-image2.png" alt="Mockup image of the website before searching" style="width:500px;"/>
