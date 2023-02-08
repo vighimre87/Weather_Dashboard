@@ -12,6 +12,7 @@ const userEntries = [];
 // Creating an event listener for the search button to get the city name and call the getGeoCodes function with the city name
 searchBtn.on("click", function(event) {
     event.preventDefault();
+    // Validate the user input for only letters and letters and spaces
     const lettersAndSpace = /^[A-Za-z\s]*$/;
     const onlyLetters = /^[A-Za-z\s]+$/;
     if (!searchInput.val().trim().match(onlyLetters) || !searchInput.val().trim().match(lettersAndSpace)) {
@@ -53,8 +54,7 @@ function getGeoCodes(cityName) {
             }
         });
 
-
-
+        
         // Save city name, longitude and latitude in the local storage for the history
         localStorage.setItem(weather.city, JSON.stringify(weather));
         getWeather(weather.lat, weather.lon);
