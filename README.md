@@ -11,17 +11,23 @@ It doesn't require any installation. As a user of the website you are able to se
 
 Please see a mockup image of the website below before searching:
 
+
 <img src="assets/images/mockup-image1.png" alt="Mockup image of the website before searching" style="width:500px;"/>
+
 
 And here is another one after searching:
 
+
 <img src="assets/images/mockup-image2.png" alt="Mockup image of the website before searching" style="width:500px;"/>
 
+
 Here is the link for the deployed webpage: https://vighimre87.github.io/Weather_Dashboard/
+
 
 ## Technologies
 
 HTML, CSS, JavaScript, Bootstrap 4, Moment JS, JQuery.
+
 
 ## Credits
 
